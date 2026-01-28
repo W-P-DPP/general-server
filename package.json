@@ -1,0 +1,49 @@
+{
+  "name": "WxBot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=development nodemon --exec \"tsx\" ./main.ts",
+    "build": "cross-env NODE_ENV=production vite build",
+    "start": "cross-env NODE_ENV=production node dist/main.cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.13.1",
+  "dependencies": {
+    "awaitqueue": "^3.3.0",
+    "axios": "^1.13.2",
+    "body-parser": "^2.2.1",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.19",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "morgan": "^1.10.1",
+    "mysql2": "^3.16.0",
+    "redis": "^5.10.0",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.28",
+    "winston": "^3.19.0",
+    "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.8",
+    "@rollup/plugin-node-resolve": "^15.3.1",
+    "@types/body-parser": "^1.19.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/morgan": "^1.9.10",
+    "@types/winston": "^2.4.4",
+    "@types/xml2js": "^0.4.14",
+    "cross-env": "^10.1.0",
+    "nodemon": "3.1.11",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.0"
+  }
+}
