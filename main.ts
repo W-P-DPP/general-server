@@ -13,21 +13,25 @@ import "./eventRegister.ts";
 import { responseMiddleware } from './utils/middleware/responseMiddleware.ts';
 
 
-const env = process.env.NODE_ENV || 'development';
+async function injectEnv() {
+  const env = process.env.NODE_ENV || 'development';
 
-dotenv.config({
-  path: path.resolve(process.cwd(), `.env.${env}`)
-});
+  dotenv.config({
+    path: path.resolve(process.cwd(), `.env.${env}`)
+  });
 
-console.log('ENV:', env);
-console.log('PORT:', process.env.PORT);
+  console.log('ENV:', env);
+  console.log('PORT:', process.env.PORT);
+}
+
+
 
 // import eventEmitter from "./utils/EventEmitter.ts";
 async function initApp() {
   const app = express();
   const logger = Logger.getInstance();
   app.use(cors());
-  app.use('/zwpstatic',express.static("public"));
+  app.use('/zwpstatic', express.static("public"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(bodyParser.text({ type: 'text/xml' }));
@@ -54,6 +58,7 @@ async function initApp() {
 
 async function bootstrap() {
   try {
+    await injectEnv()
     await initApp();
     const redis = RedisService.getInstance();
     await redis.connect();
