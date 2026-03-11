@@ -1,5 +1,10 @@
 {
     "expires_in":7200,
+    "log": {
+        "rotate": true,
+        "datePattern": "YYYY-MM-DD",
+        "maxFiles": "365d"
+    },
     "axios":{
         "baseURL":"https://api.weixin.qq.com/cgi-bin/",
         "timeout":5000
@@ -20,5 +25,9 @@
         "timezone": "+08:00",
         "charset": "utf8mb4"
 
+    },
+    "operationLog": {
+        "enabled": true,
+        "whitelist": ["/api/getMenu"]
     }
 }

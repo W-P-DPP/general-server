@@ -35,7 +35,7 @@ async function initApp() {
 async function bootstrap() {
   try {
     await injectEnv()
-    await initRedis()
+    await initRedis() 
     await initDataBase();
     await initApp();
   } catch (err) {
