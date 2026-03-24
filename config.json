@@ -26,8 +26,8 @@
         "charset": "utf8mb4"
 
     },
-    "operationLog": {
-        "enabled": true,
-        "whitelist": ["/api/getMenu"]
+    "agent":{
+        "baseURL":"https://yz-api-xai.yingzi.com/v1",
+        "key":"sk-XvsRvhFPlO2elHVug83zSH7JfTifTqgWEd7itjiBtFZ3hdgP"
     }
 }

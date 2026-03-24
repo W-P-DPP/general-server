@@ -2,17 +2,14 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import config from '../src/config.ts';
 import { Logger } from './index.ts';
+import { createRequire } from 'module';
 
-let dataSource: DataSource;
-
-export function getDataSource(): DataSource {
-    return dataSource;
-}
+const require = createRequire(import.meta.url);
 
 export default async function initDataBase() {
     const logger = Logger.getInstance();
     logger.info('Initializing MySQL Database Connection...');
-    dataSource = new DataSource({
+    const dataSource = new DataSource({
         type: config.Database.type || 'mysql',
         host:  config.Database.host || '127.0.0.1',
         port:  config.Database.port || 3306,

@@ -3,7 +3,6 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { responseMiddleware } from './utils/middleware/responseMiddleware.ts';
 import { jwtMiddleware } from './utils/middleware/jwtMiddleware.ts';
-import { operationLogMiddleware } from './utils/middleware/operationLogMiddleware.ts';
 import router from './src/index.ts';
 import { RequestLogger, ErrorLogger } from './utils/index.ts';
 
@@ -15,7 +14,7 @@ export function createApp() {
   app.use(bodyParser.text({ type: 'text/xml' }));
   app.use(RequestLogger.middleware());
   app.use(responseMiddleware);
-  app.use('/api', jwtMiddleware, operationLogMiddleware, router);
+  app.use('/api', jwtMiddleware, router);
   app.use(ErrorLogger.middleware());
   return app;
 }

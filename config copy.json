@@ -24,5 +24,9 @@
         "queueLimit":0,
         "timezone": "+08:00",
         "charset": "utf8mb4"
+    },
+    "agent":{
+        "baseURL":"https://yz-api-xai.yingzi.com/v1",
+        "key":"sk-XvsRvhFPlO2elHVug83zSH7JfTifTqgWEd7itjiBtFZ3hdgP"
     }
 }
