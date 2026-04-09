@@ -118,10 +118,10 @@ afterAll(async () => {
 });
 
 describe('siteMenu 查询接口', () => {
-  it('GET /api/getMenu 应在表为空时自动导入并返回中文成功消息', async () => {
+  it('GET /api/site-menu/getMenu 应在表为空时自动导入并返回中文成功消息', async () => {
     await clearSiteMenuTable();
 
-    const res = await request(app).get('/api/getMenu');
+    const res = await request(app).get('/api/site-menu/getMenu');
 
     expect(res.status).toBe(200);
     expect(res.body).toMatchObject({
@@ -145,8 +145,23 @@ describe('siteMenu 查询接口', () => {
     expect(rows.length).toBeGreaterThan(0);
   });
 
-  it('GET /api/site-menu/:id 应返回指定菜单详情', async () => {
-    const res = await request(app).get('/api/site-menu/3');
+  it('GET /api/site-menu/getMenu 与 GET /api/site-menu/getMenu/:id 应同时保持可用', async () => {
+    const compatibleRes = await request(app).get('/api/site-menu/getMenu');
+    const detailRes = await request(app).get('/api/site-menu/getMenu/3');
+
+    expect(compatibleRes.status).toBe(200);
+    expect(detailRes.status).toBe(200);
+    expect(Array.isArray(compatibleRes.body.data)).toBe(true);
+    expect(detailRes.body.data).toEqual(
+      expect.objectContaining({
+        id: 3,
+        name: '工具',
+      }),
+    );
+  });
+
+  it('GET /api/site-menu/getMenu/:id 应返回指定菜单详情', async () => {
+    const res = await request(app).get('/api/site-menu/getMenu/3');
 
     expect(res.status).toBe(200);
     expect(res.body).toMatchObject({
@@ -163,8 +178,8 @@ describe('siteMenu 查询接口', () => {
 });
 
 describe('siteMenu CRUD 接口', () => {
-  it('POST /api/site-menu 应新增顶级菜单', async () => {
-    const res = await request(app).post('/api/site-menu').send({
+  it('POST /api/site-menu/createMenu 应新增顶级菜单', async () => {
+    const res = await request(app).post('/api/site-menu/createMenu').send({
       parentId: null,
       name: '测试菜单',
       path: '/test-menu',
@@ -185,8 +200,8 @@ describe('siteMenu CRUD 接口', () => {
     );
   });
 
-  it('POST /api/site-menu 父级菜单不存在时应返回中文错误', async () => {
-    const res = await request(app).post('/api/site-menu').send({
+  it('POST /api/site-menu/createMenu 父级菜单不存在时应返回中文错误', async () => {
+    const res = await request(app).post('/api/site-menu/createMenu').send({
       parentId: 99999,
       name: '测试子菜单',
       path: '/test-child',
@@ -200,8 +215,8 @@ describe('siteMenu CRUD 接口', () => {
     });
   });
 
-  it('PUT /api/site-menu/:id 应更新菜单', async () => {
-    const res = await request(app).put('/api/site-menu/2').send({
+  it('PUT /api/site-menu/updateMenu/:id 应更新菜单', async () => {
+    const res = await request(app).put('/api/site-menu/updateMenu/2').send({
       name: 'Git工具',
       path: '/git-tools',
     });
@@ -220,8 +235,8 @@ describe('siteMenu CRUD 接口', () => {
     );
   });
 
-  it('DELETE /api/site-menu/:id 应删除菜单及其子树', async () => {
-    const res = await request(app).delete('/api/site-menu/3');
+  it('DELETE /api/site-menu/deleteMenu/:id 应删除菜单及其子树', async () => {
+    const res = await request(app).delete('/api/site-menu/deleteMenu/3');
 
     expect(res.status).toBe(200);
     expect(res.body).toMatchObject({
@@ -229,7 +244,7 @@ describe('siteMenu CRUD 接口', () => {
       msg: '删除菜单成功',
     });
 
-    const listRes = await request(app).get('/api/site-menu');
+    const listRes = await request(app).get('/api/site-menu/getMenu');
     const ids = listRes.body.data.flatMap((node: any) => [
       node.id,
       ...node.children.map((child: any) => child.id),
@@ -251,7 +266,7 @@ describe('JWT 中间件（中文返回）', () => {
   });
 
   it('无 token 应返回中文错误', async () => {
-    const res = await request(app).get('/api/getMenu');
+    const res = await request(app).get('/api/site-menu/getMenu');
 
     expect(res.status).toBe(401);
     expect(res.body).toMatchObject({
@@ -262,7 +277,7 @@ describe('JWT 中间件（中文返回）', () => {
 
   it('token 格式错误应返回中文错误', async () => {
     const res = await request(app)
-      .get('/api/getMenu')
+      .get('/api/site-menu/getMenu')
       .set('Authorization', 'InvalidToken');
 
     expect(res.status).toBe(401);
@@ -276,7 +291,7 @@ describe('JWT 中间件（中文返回）', () => {
     const { generateToken } = await import('../../utils/middleware/jwtMiddleware.ts');
     const token = generateToken({ userId: 1 });
     const res = await request(app)
-      .get('/api/getMenu')
+      .get('/api/site-menu/getMenu')
       .set('Authorization', `Bearer ${token}`);
 
     expect(res.status).toBe(200);

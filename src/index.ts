@@ -4,6 +4,6 @@ import siteMenuRouter from './siteMenu/siteMenu.router.ts';
 
 const router: Router = express.Router();
 
-router.use(siteMenuRouter);
+router.use('/site-menu', siteMenuRouter);
 
 export default router;

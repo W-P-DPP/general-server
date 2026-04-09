@@ -10,10 +10,9 @@ import {
 const siteMenuRouter: Router = express.Router();
 
 siteMenuRouter.get('/getMenu', getMenu);
-siteMenuRouter.get('/site-menu', getMenu);
-siteMenuRouter.get('/site-menu/:id', getMenuDetail);
-siteMenuRouter.post('/site-menu', createMenu);
-siteMenuRouter.put('/site-menu/:id', updateMenu);
-siteMenuRouter.delete('/site-menu/:id', deleteMenu);
+siteMenuRouter.get('/getMenu/:id', getMenuDetail);
+siteMenuRouter.post('/createMenu', createMenu);
+siteMenuRouter.put('/updateMenu/:id', updateMenu);
+siteMenuRouter.delete('/deleteMenu/:id', deleteMenu);
 
 export default siteMenuRouter;
