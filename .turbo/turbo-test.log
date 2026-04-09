@@ -1,0 +1,38 @@
+
+> @super-pro/server@1.0.0 test C:\Users\admin\Desktop\my\super-pro\general-server
+> cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.cjs
+
+(node:24372) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23216) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS __tests__/unit/jwtMiddleware.test.ts
+PASS __tests__/integration/api.test.ts
+  ● Console
+
+    console.log
+      2026-04-08 19:52:08 [[32minfo[39m] GET /api/getMenu 200 871 - 4.015 ms {}
+
+      at Console.log (../node_modules/.pnpm/winston@3.19.0/node_modules/winston/lib/winston/transports/console.js:87:23)
+
+    console.log
+      2026-04-08 19:52:08 [[32minfo[39m] GET /api/getMenu 401 86 - 0.407 ms {}
+
+      at Console.log (../node_modules/.pnpm/winston@3.19.0/node_modules/winston/lib/winston/transports/console.js:87:23)
+
+    console.log
+      2026-04-08 19:52:08 [[32minfo[39m] GET /api/getMenu 401 86 - 0.205 ms {}
+
+      at Console.log (../node_modules/.pnpm/winston@3.19.0/node_modules/winston/lib/winston/transports/console.js:87:23)
+
+    console.log
+      2026-04-08 19:52:08 [[32minfo[39m] GET /api/getMenu 200 871 - 1.646 ms {}
+
+      at Console.log (../node_modules/.pnpm/winston@3.19.0/node_modules/winston/lib/winston/transports/console.js:87:23)
+
+
+Test Suites: 2 passed, 2 total
+Tests:       7 passed, 7 total
+Snapshots:   0 total
+Time:        2.847 s, estimated 4 s
+Ran all test suites.

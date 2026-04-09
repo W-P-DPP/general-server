@@ -1,0 +1,11 @@
+
+> @super-pro/server@1.0.0 build C:\Users\admin\Desktop\my\super-pro\general-server
+> cross-env NODE_ENV=production vite build
+
+[36mvite v7.3.2 [32mbuilding ssr environment for production...[36m[39m
+transforming...
+[32m✓[39m 2680 modules transformed.
+rendering chunks...
+[2mdist/[22m[36massets/client_false-Botg8Y3A.cjs  [39m[1m[2m    0.23 kB[22m[1m[22m
+[2mdist/[22m[36mmain.cjs                          [39m[1m[33m6,096.80 kB[39m[22m
+[32m✓ built in 14.47s[39m
