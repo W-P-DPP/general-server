@@ -15,6 +15,9 @@ export function createApp() {
   app.use(bodyParser.text({ type: 'text/xml' }));
   app.use(RequestLogger.middleware());
   app.use(responseMiddleware);
+  app.get('/',(req,res)=>{
+    res.sendSuccess()
+  })
   app.use('/api', jwtMiddleware, operationLogMiddleware, router);
   app.use(ErrorLogger.middleware());
   return app;

@@ -1,6 +1,17 @@
-import { createRequire } from 'module';
+import { readFile, writeFile } from 'fs/promises';
+import { fileURLToPath } from 'url';
 
-const require = createRequire(import.meta.url);
-const siteMenu = require('../siteMenu.json') as { [key: string]: any };
+export const siteMenuFilePath = fileURLToPath(new URL('../siteMenu.json', import.meta.url));
 
-export default siteMenu;
+export async function loadSiteMenuSource(): Promise<unknown> {
+  const raw = await readFile(siteMenuFilePath, 'utf8');
+  return JSON.parse(raw) as unknown;
+}
+
+export async function saveSiteMenuSource(source: unknown): Promise<void> {
+  await writeFile(
+    siteMenuFilePath,
+    `${JSON.stringify(source, null, 2)}\n`,
+    'utf8',
+  );
+}

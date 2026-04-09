@@ -1,11 +1,9 @@
 
+import express, { type Router } from 'express';
+import siteMenuRouter from './siteMenu/siteMenu.router.ts';
 
+const router: Router = express.Router();
 
-import express, { Router } from "express";
-import { getMenu } from "./siteMenu/siteMenu.controller.ts";
-
-const router:Router = express.Router();
-// router.use("/tag",tagRouter)
-router.get("/getMenu",getMenu)
+router.use(siteMenuRouter);
 
 export default router;

@@ -23,7 +23,7 @@ export function jwtMiddleware(req: Request, res: Response, next: NextFunction) {
 
   const authHeader = req.headers['authorization']
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(HttpStatus.UNAUTHORIZED).sendFail('Missing or invalid Authorization header', HttpStatus.UNAUTHORIZED)
+    return res.status(HttpStatus.UNAUTHORIZED).sendFail('缺少授权信息或授权格式错误', HttpStatus.UNAUTHORIZED)
   }
 
   const token = authHeader.slice(7)
@@ -31,7 +31,7 @@ export function jwtMiddleware(req: Request, res: Response, next: NextFunction) {
     req.jwtPayload = jwt.verify(token, JWT_SECRET) as JwtPayload
     next()
   } catch {
-    return res.status(HttpStatus.UNAUTHORIZED).sendFail('Invalid or expired token', HttpStatus.UNAUTHORIZED)
+    return res.status(HttpStatus.UNAUTHORIZED).sendFail('令牌无效或已过期', HttpStatus.UNAUTHORIZED)
   }
 }
 

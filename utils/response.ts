@@ -1,6 +1,6 @@
 // src/utils/response.ts
 
-export function success<T>(data: T, msg = 'success'): ResultVO<T> {
+export function success<T>(data: T, msg = '成功'): ResultVO<T> {
   return {
     code: 200,
     msg,
@@ -9,7 +9,7 @@ export function success<T>(data: T, msg = 'success'): ResultVO<T> {
   }
 }
 
-export function fail(msg = 'fail', code = 500, data?: any): ResultVO {
+export function fail(msg = '失败', code = 500, data?: any): ResultVO {
   return {
     code,
     msg,

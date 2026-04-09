@@ -1,15 +1,26 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import config from '../src/config.ts';
+import { OperationLogEntity } from '../src/operationLog/operationLog.entity.ts';
+import { SiteMenuEntitySchema } from '../src/siteMenu/siteMenu.entity.ts';
 import { Logger } from './index.ts';
 
-let dataSource: DataSource;
+let dataSource: DataSource | undefined;
+let initializationPromise: Promise<DataSource> | null = null;
 
-export function getDataSource(): DataSource {
+export function getDataSource(): DataSource | undefined {
     return dataSource;
 }
 
 export default async function initDataBase() {
+    if (dataSource?.isInitialized) {
+        return dataSource;
+    }
+
+    if (initializationPromise) {
+        return initializationPromise;
+    }
+
     const logger = Logger.getInstance();
     logger.info('Initializing MySQL Database Connection...');
     dataSource = new DataSource({
@@ -25,8 +36,20 @@ export default async function initDataBase() {
         timezone: config.Database.timezone || '+08:00',
         charset:config.Database.charset || 'utf8mb4',
 
-        entities: ['src/**/*.entity.ts'],
+        entities: [OperationLogEntity, SiteMenuEntitySchema],
         migrations: ['src/**/*.migration.ts']
     });
-    return dataSource.initialize();
+
+    initializationPromise = dataSource.initialize()
+        .then((instance) => {
+            initializationPromise = null;
+            return instance;
+        })
+        .catch((error) => {
+            initializationPromise = null;
+            dataSource = undefined;
+            throw error;
+        });
+
+    return initializationPromise;
 };

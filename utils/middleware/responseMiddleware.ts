@@ -14,7 +14,7 @@ export function responseMiddleware(req: Request, res: Response, next: NextFuncti
   res.sendSuccess = function <T>(data: T, msg?: string) {
     const result: ResultVO<T> = {
       code: 200,
-      msg: msg || 'success',
+      msg: msg || '成功',
       data,
       timestamp: Date.now()
     }
@@ -24,7 +24,7 @@ export function responseMiddleware(req: Request, res: Response, next: NextFuncti
   res.sendFail = function (msg?: string, code?: number) {
     const result: ResultVO = {
       code: code || 500,
-      msg: msg || 'fail',
+      msg: msg || '失败',
       timestamp: Date.now()
     }
     res.json(result)

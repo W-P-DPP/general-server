@@ -4,6 +4,7 @@ import { createApp } from './app.ts';
 import RedisService from "./utils/Redis.ts";
 import initDataBase from "./utils/mysql.ts";
 import "./eventRegister.ts";
+import { initSiteMenuModule } from './src/siteMenu/siteMenu.repository.ts';
 
 
 async function injectEnv() {
@@ -37,6 +38,7 @@ async function bootstrap() {
     await injectEnv()
     await initRedis() 
     await initDataBase();
+    await initSiteMenuModule();
     await initApp();
   } catch (err) {
     console.error('Bootstrap error:', err);
